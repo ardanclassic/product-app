@@ -2,12 +2,26 @@
 import React, { useEffect, useState } from "react";
 import { getProduct, getProductByCategory } from "./product/getProduct";
 import { useRouter } from "next/navigation";
+import { useReportWebVitals } from "next/web-vitals";
 
 function ProductPage() {
   const router = useRouter();
   const [products, setproducts] = useState<any[]>([]);
   const [category, setcategory] = useState<any>("");
   const [price, setprice] = useState<any>("asc");
+
+  useReportWebVitals((metric) => {
+    console.log(metric);
+    switch (metric.name) {
+      case "FCP": {
+        // handle FCP results
+      }
+      case "LCP": {
+        // handle LCP results
+      }
+      // ...
+    }
+  });
 
   useEffect(() => {
     getdata();
@@ -25,7 +39,6 @@ function ProductPage() {
     setcategory(id);
     if (id) {
       const res: any = await getProductByCategory(id);
-      console.log(res);
       if (res?.products?.length > 0) {
         setproducts(res?.products);
         sortPrices(res?.products, price);
@@ -47,7 +60,9 @@ function ProductPage() {
   return (
     <div className="main-container w-full p-16">
       <div className="flex gap-3">
-        <div className="sidebar flex flex-col gap-4 w-[300px] min-h-[500px] p-3 bg-slate-800 rounded-lg">
+        <div className="sidebar flex flex-col gap-4 w-[300px] min-h-[500px] p-6 bg-slate-800 rounded-lg">
+          <div className="title text-center mb-4 font-semibold text-xl">Filters</div>
+
           <div className="category">
             <div className="title mb-2">Category</div>
             <select
