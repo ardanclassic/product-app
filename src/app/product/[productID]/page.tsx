@@ -1,9 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getProductByID } from "../getProduct";
+import { useReportWebVitals } from "next/web-vitals";
 
 function ProductDetail({ params }: { params: { productID: string } }) {
   const [product, setproduct] = useState<any>(null);
+
+  useReportWebVitals((metric) => {
+    console.log(metric);
+    switch (metric.name) {
+      case "FCP": {
+        // handle FCP results
+      }
+      case "LCP": {
+        // handle LCP results
+      }
+      // ...
+    }
+  });
 
   useEffect(() => {
     console.log(params);
@@ -13,7 +27,6 @@ function ProductDetail({ params }: { params: { productID: string } }) {
   const getProductDetail = async () => {
     const res = await getProductByID(params.productID);
     if (res) setproduct(res);
-    console.log(res);
   };
 
   return (
