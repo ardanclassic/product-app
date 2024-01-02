@@ -37,7 +37,7 @@ function ProductDetail({ params }: { params: { productID: string } }) {
     return (
       <Swiper
         spaceBetween={24}
-        slidesPerView={3}
+        slidesPerView={3.5}
         freeMode={true}
         className="image-group my-6"
       >
