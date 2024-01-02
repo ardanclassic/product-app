@@ -60,7 +60,7 @@ function ProductPage() {
   return (
     <div className="main-container w-full p-16">
       <div className="flex gap-3">
-        <div className="sidebar flex flex-col gap-4 w-[300px] min-h-[500px] p-6 bg-slate-800 rounded-lg">
+        <div className="sidebar flex flex-col gap-4 w-[300px] max-h-[300px] p-6 bg-slate-800 rounded-lg">
           <div className="title text-center mb-4 font-semibold text-xl">Filters</div>
 
           <div className="category">

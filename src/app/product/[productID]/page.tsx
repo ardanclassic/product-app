@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { getProductByID } from "../getProduct";
 import { useReportWebVitals } from "next/web-vitals";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import 'swiper/css/free-mode';
 
 function ProductDetail({ params }: { params: { productID: string } }) {
   const [product, setproduct] = useState<any>(null);
@@ -29,15 +33,31 @@ function ProductDetail({ params }: { params: { productID: string } }) {
     if (res) setproduct(res);
   };
 
+  const DisplayProduct = () => {
+    return (
+      <Swiper
+        spaceBetween={24}
+        slidesPerView={3}
+        freeMode={true}
+        className="image-group my-6"
+      >
+        {product?.images?.map((m: any, id: any) => {
+          return (
+            <SwiperSlide className="cursor-pointer text-center">
+              <img key={id} src={m} alt={product.title} className="rounded-lg h-[300px] mx-auto" />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    );
+  };
+
   return (
     <div className="main-container w-full p-16">
       <div className="product-content relative bg-slate-800 rounded-lg p-4">
         <div className="title text-2xl font-semibold mb-3">{product?.title}</div>
-        <div className="images-group w-3/4 flex gap-3 overflow-x-scroll cursor-pointer mb-4">
-          {product?.images?.map((m: any, id: any) => {
-            return <img key={id} src={m} alt={product.title} className="w-[350px] rounded-lg" />;
-          })}
-        </div>
+        <DisplayProduct />
+
         <div className="product-price text-xl font-semibold text-green-500">$ {product?.price}</div>
         <div className="description mb-3">{product?.description}</div>
         <div className="stock-badge absolute top-0 right-0 p-2 bg-orange-500 rounded-se-lg rounded-bl-lg">
